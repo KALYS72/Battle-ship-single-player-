@@ -49,7 +49,7 @@ void writeScoreboardToFile(const PlayerScore scoreboard[], int numPlayers, const
 void sortScoreboard(PlayerScore scoreboard[], int numPlayers) {
     for (int i = 0; i < numPlayers - 1; ++i) {
         for (int j = 0; j < numPlayers - i - 1; ++j) {
-            if (scoreboard[j].score < scoreboard[j + 1].score) {
+            if (scoreboard[j].score > scoreboard[j + 1].score) {
                 swap(scoreboard[j], scoreboard[j + 1]);
             }
         }
@@ -146,8 +146,8 @@ void placeShip(int board[7][7], int length) {
 
 int noShip(int board[7][7], int x, int y) {
     int res = 0;
-    for (int i = x-1; i <= x+1; i++) {
-        for (int j = y-1; j <= y+1; j++) {
+    for (int i = max(0, x - 1); i <= min(6, x + 1); i++) {
+        for (int j = max(0, y - 1); j <= min(6, y + 1); j++) {
             if (board[i][j] == SHIP) {
                 res++;
             }
@@ -155,6 +155,7 @@ int noShip(int board[7][7], int x, int y) {
     }
     return res;
 }
+
 
 
 void bigShipDestroyed(int board[7][7], int x, int y) {
