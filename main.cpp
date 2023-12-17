@@ -61,6 +61,7 @@ const int EMPTY = 0;
 const int MISS = 1;
 const int HIT = 2;
 const int SHIP = 5;
+const int DESTROY = 10;
 
 void printBoard(int board[7][7]) {
     for (int i = 0; i < 7; i++) {
@@ -73,6 +74,8 @@ void printBoard(int board[7][7]) {
                 cout << "x ";                                       
             } else if (board[i][j] == SHIP) {
                 cout << "S ";
+            } else if (board[i][j] == DESTROY) {
+                cout << "D ";
             }
         }
         cout << endl;
@@ -168,8 +171,10 @@ void bigShipDestroyed(int board[7][7], int x, int y) {
                 board[i][j] = MISS;
             }
             board[i][j] = MISS;
+            
         }
     }
+    board[x][y] = DESTROY;
     if (new_x != 99) {
         bigShipDestroyed(board, new_x, new_y);
     }
